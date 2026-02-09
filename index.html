@@ -10,6 +10,7 @@
         :root {
             --gold: #9e801b;
             --text-greyish: #777777; 
+            --status-green: #4CAF50;
             --glass-bg: rgba(255, 255, 255, 0.35);
             --glass-border: rgba(255, 255, 255, 0.4);
             --faint-labelcard: rgba(68, 68, 68, 0.7);
@@ -73,9 +74,9 @@
         }
 
         .card-label { font-size: 3vh; text-transform: uppercase; font-weight: 400; }
-        .card-label b { font-weight: 600; color: var(--faint-labelcard); }
+        .card-label b { font-weight: 600; color: var(--faint-label); }
 
-        .aqi-value { font-size: 15vh; font-weight: 200; color: var(--gold); line-height: 0.7; margin: 0; }
+        .aqi-value { font-size: 15vh; font-weight: 200; color: var(--faint-label); line-height: 0.7; margin: 0; }
 
         .metrics-box {
             display: flex; width: 100%; 
@@ -86,7 +87,7 @@
 
         .metric-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .metric-label { font-size: 2.5vh; text-transform: uppercase; color: var(--faint-label); margin-bottom: 0.2vh; }
-        .metric-val { font-size: 3vh; font-weight: 500; color: var(--gold); white-space: nowrap; }
+        .metric-val { font-size: 3vh; font-weight: 500; color: var(--faint-label); white-space: nowrap; }
         .metric-unit { font-size: 1em; margin-left: 0.5vh; }
 
         .footer-container { display: flex; align-items: center; justify-content: center; flex-grow: 0.2; }
@@ -97,12 +98,12 @@
     <div class="dashboard-wrapper">
         <div class="header-section">
             <div class="header-top">Live AQI</div>
-            <div class="main-headline">Indoor Air Quality is <b id="status-text">Detecting...</b></div>
+            <div class="main-headline">Indoor air quality is <b id="status-text">Detecting...</b></div>
         </div>
 
         <div class="card-container">
             <div class="glass-card">
-                <div class="card-label"><b>Internal</b> AQI</div>
+                <div class="card-label"><b>One Lodha Place</b> </div>
                 <div class="aqi-value" id="in-aqi">--</div>
                 <div class="metrics-box">
                     <div class="metric-item">
@@ -117,7 +118,7 @@
             </div>
 
             <div class="glass-card">
-                <div class="card-label"><b>External</b> AQI</div>
+                <div class="card-label"><b>Worli</b> </div>
                 <div class="aqi-value" id="out-aqi">--</div>
                 <div class="metrics-box">
                     <div class="metric-item">
