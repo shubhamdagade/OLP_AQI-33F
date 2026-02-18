@@ -167,7 +167,7 @@
         const K_KEY = 'nomjPNZHYkGzzP5YIJePqI2cUON67v1pj9JPXb8BpcgnC5VX';
         const GOOGLE_KEY = 'AIzaSyD-sKAUFhaCGFENHqjlyrQfhbgOplhxy-Q'; 
         const LAT = 19.0000, LON = 72.8200;
-        const DEVICE_IDS = ['0d7dab01-e1c1-42f2-b266-9bd80694e4a1', 'db410241-f3de-401e-a569-473de7c0ceb3', '910d75c5-eedd-4e0c-b4f3-38436eb7aab8', '1b90f659-463e-46f7-8741-bf2509845187', 'cb56dee8-dc39-4888-98bb-e8c2e5e36890', '7cb9a5be-e47d-4c7c-9b30-8d880699f72c','02ef3916-9526-4713-8a3e-55b528789d74','22a54044-b202-4cdd-94b5-dc83fecb909f'];
+        const DEVICE_IDS = ['caf4632a-98dd-47f3-bfd7-6b54ba5a6886', 'c13d22a5-318b-459f-92b6-cb1a8182083a', '0fcb68a7-d014-4c64-afb5-911c3f697879', 'c1dd9ba1-d323-4c20-9eb0-88b5908c60d2', 'a74bbddc-8f27-43de-8672-90a80d0cd3a1', '8fc8d082-1a34-4950-b8d0-d0d68be4a6ef', '796ebfee-564a-4361-b7d1-90f86c9297ed', 'f05a413c-a488-427c-a12a-dc22851d9942'];
  
         function calcAQI(pm) {
             if (pm <= 30) return Math.round(pm * 50 / 30);
@@ -195,18 +195,20 @@
                     }
                 });
  
-               if (pm25List.length > 0) {
-    const avg25 = pm25List.reduce((a, b) => a + b, 0) / pm25List.length;
-    const avg10 = pm10List.reduce((a, b) => a + b, 0) / pm10List.length;
-    inAQI = calcAQI(avg25);
+               if (validPM25.length > 0) {
+                    // Calculating Average instead of Min
+                    const avg25 = validPM25.reduce((a, b) => a + b, 0) / validPM25.length;
+                    const avg10 = validPM10.reduce((a, b) => a + b, 0) / validPM10.length;
+                    
+                    const aqi = calcAQI(avg25);
+                    document.getElementById('in-aqi').innerText = aqi;
+                    document.getElementById('in-pm25').innerHTML = Math.round(avg25) + '<span class="metric-unit"> µg/m³</span>';
+                    document.getElementById('in-pm10').innerHTML = Math.round(avg10) + '<span class="metric-unit"> µg/m³</span>';
+                    
+                    const st = document.getElementById('status-text');
+                    st.innerText = aqi <= 15 ? "PRISTINE" : aqi <= 30 ? "EXCEPTIONAL" : aqi <= 45 ? "EXCELLENT" : aqi <= 60 ? "VERY GOOD" : "GOOD";
 
-    document.getElementById('in-aqi').innerText = inAQI;
-    document.getElementById('in-pm25').innerHTML = Math.round(avg25) + '<span class="metric-unit"> µg/m³</span>';
-    document.getElementById('in-pm10').innerHTML = Math.round(avg10) + '<span class="metric-unit"> µg/m³</span>';
-    
-    const st = document.getElementById('status-text');
-    st.innerText = inAQI <= 15 ? "PRISTINE" : inAQI <= 30 ? "EXCEPTIONAL" : inAQI <= 45 ? "EXCELLENT" : inAQI <= 60 ? "VERY GOOD" : "GOOD";
-    }
+}
 
  
                 // --- External Data (Google API) ---
