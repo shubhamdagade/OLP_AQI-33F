@@ -195,18 +195,19 @@
                     }
                 });
  
-                if (pm25List.length > 0) {
-                    const low25 = Math.min(...pm25List);
-                    const low10 = Math.min(...pm10List);
-                    inAQI = calcAQI(low25);
-                    
-                    document.getElementById('in-aqi').innerText = inAQI;
-                    document.getElementById('in-pm25').innerHTML = Math.round(low25) + '<span class="metric-unit"> µg/m³</span>';
-                    document.getElementById('in-pm10').innerHTML = Math.round(low10) + '<span class="metric-unit"> µg/m³</span>';
-                    
-                    const st = document.getElementById('status-text');
-                    st.innerText = inAQI <= 15 ? "PRISTINE" : inAQI <= 30 ? "EXCEPTIONAL" : inAQI <= 45 ? "EXCELLENT" : inAQI <= 60 ? "VERY GOOD" : "GOOD";
-                }
+               if (pm25List.length > 0) {
+    const avg25 = pm25List.reduce((a, b) => a + b, 0) / pm25List.length;
+    const avg10 = pm10List.reduce((a, b) => a + b, 0) / pm10List.length;
+    inAQI = calcAQI(avg25);
+
+    document.getElementById('in-aqi').innerText = inAQI;
+    document.getElementById('in-pm25').innerHTML = Math.round(avg25) + '<span class="metric-unit"> µg/m³</span>';
+    document.getElementById('in-pm10').innerHTML = Math.round(avg10) + '<span class="metric-unit"> µg/m³</span>';
+    
+    const st = document.getElementById('status-text');
+    st.innerText = inAQI <= 15 ? "PRISTINE" : inAQI <= 30 ? "EXCEPTIONAL" : inAQI <= 45 ? "EXCELLENT" : inAQI <= 60 ? "VERY GOOD" : "GOOD";
+    }
+
  
                 // --- External Data (Google API) ---
                 const gRes = await fetch(`https://airquality.googleapis.com/v1/currentConditions:lookup?key=${GOOGLE_KEY}`, {
